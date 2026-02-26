@@ -1,0 +1,12 @@
+[webservers]
+%{~ for i in range(length(web_ips)) ~}
+web-${i + 1} ansible_host=${web_ips[i]} fqdn=${web_fqdns[i]}
+%{~ endfor ~}
+
+[databases]
+%{~ for name, config in databases ~}
+${name} ansible_host=${databases_ips[name]} fqdn=${databases_fqdns[name]}
+%{~ endfor ~}
+
+[storage]
+storage ansible_host=${storage_ip} fqdn=${storage_fqdn}
